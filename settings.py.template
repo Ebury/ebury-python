@@ -1,0 +1,31 @@
+#// to make this dict reduntant by validating 
+#// from whatever is available in the resources lib
+ENDPOINTS = {
+	'quotes': ['post'],
+	'trades': ['post', 'get'],
+	'metadata': ['get'],
+	'beneficiaries': ['post', 'get', 'patch', 'delete'],
+	'payments': ['post', 'get', 'patch', 'delete'],
+	'contacts': ['get', 'patch'],
+	'documents': ['get'],
+	'multipayments': ['post', 'patch', 'delete']
+}
+
+SETTINGS = {
+	'SANDBOX':{
+		'API_BASE': "https://sandbox.ebury.io",
+		'AUTH_URL': "https://auth-sandbox.ebury.io",
+		'EMAIL': "user",
+		'PASS': "pass",
+		'CLIENT_ID': "EBPCLIxxxxxx",
+		'CONTACT_ID': "XXXXXXX"
+	},
+	'LOCAL':{
+		'API_BASE': "http://127.0.0.1:5000",
+		'AUTH_URL': "http://127.0.0.1:5001",
+		'EMAIL': "user",
+		'PASS': "pass",
+		'CLIENT_ID': "EBPCLIxxxxxx",
+		'CONTACT_ID': "XXXXXXX"	
+	}
+}
