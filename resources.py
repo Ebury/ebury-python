@@ -2,8 +2,15 @@ import json
 import pprint
 
 class Entity(object):
-	def load_attributes():
+
+	def validate_passed_data():
 		pass
+
+	#load passed atributes into self attributes
+	def load_attributes():
+		validate_passed_data():
+		pass
+
 	def __getattr__(self, attr):
 		return json.loads(self._request.data.decode('utf-8'))[attr]
 
@@ -103,4 +110,9 @@ class Payment(Entity):
 			(self._session.API_BASE, pi, self._session.CLIENT_ID),
 			headers=self._session.headers)
 		return	self._request.status
+
+class Multipayment(Entity):
+	def __init__(self, api, mpay_data=None):
+		self._session = api
+		self._request = None
 
