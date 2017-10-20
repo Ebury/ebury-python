@@ -3,13 +3,14 @@ import pprint
 
 class Entity(object):
 
-	def validate_passed_data():
+	def validate(self, passed_data):
 		pass
 
 	#load passed atributes into self attributes
-	def load_attributes():
-		validate_passed_data():
-		pass
+	def load_attributes(self, passed_data):
+		self.validate(passed_data)
+		for key in passed_data:
+			setattr(self, key, passed_data[key])
 
 	def __getattr__(self, attr):
 		return json.loads(self._request.data.decode('utf-8'))[attr]
@@ -23,8 +24,7 @@ class Quote(Entity):
 		self._session = api
 		self._request = None
 		if isinstance(quote_data, dict):
-			for key in quote_data:
-				setattr(self, key, quote_data[key])
+			self.load_attributes(quote_data)
 			self.post(quote_data)
 
 	def post(self, data):
