@@ -89,7 +89,7 @@ class Beneficiary(Entity):
 
 
 class Payment(Entity):
-	def __init__(self, api, pay_data=None):
+	def __init__(self, api, pay_data=None, trade=None, bene=None):
 		self._session = api
 		self._request = None
 		if isinstance(pay_data, str):
@@ -103,7 +103,6 @@ class Payment(Entity):
 			body = json.dumps(data), headers=self._session.headers)
 		return self._request.status
 
-	
 	def get(self, pi):
 		self._request = self._session.urlopen('GET',
 			'%s/payments/%s?client_id=%s' % 
@@ -111,8 +110,20 @@ class Payment(Entity):
 			headers=self._session.headers)
 		return	self._request.status
 
+
 class Multipayment(Entity):
-	def __init__(self, api, mpay_data=None):
+	def __init__(self, api, mpay_data=None, sell_currency=None):
 		self._session = api
 		self._request = None
+		if sell_currency is None:
+			self.url = '%s/multipayments?client_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID)
+		else:
+			self.url = '%s/multipayments?client_id=%s?sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
+		self.post(mpay_data)
+
+	def post(self, data):
+		self._request = self._session.urlopen('POST', self.url , headers=self._session.headers)
+		return self._request.status
+
+
 

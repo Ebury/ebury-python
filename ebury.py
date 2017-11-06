@@ -113,6 +113,9 @@ class Ebury(PoolManager):
 	def Payments(self, pay_data):
 		return resources.Payment(self, pay_data)
 
+	def Multipayments(self, mpay_data, sell_currency):
+		return resources.Multipayment(self, mpay_data, sell_currency)
+
 
 
 
