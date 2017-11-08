@@ -42,6 +42,8 @@ class Trade(Entity):
 		self._defaultBody = {'reason': 'test', 'trade_type': 'spot'}
 		if isinstance(trade_data, Quote):
 			self.post(trade_data)
+		elif isinstance(trade_data, str):
+			self.get(trade_data)
 
 	def post(self, quote, tradeBody=None):
 		if tradeBody is None:
@@ -112,13 +114,15 @@ class Payment(Entity):
 
 
 class Multipayment(Entity):
-	def __init__(self, api, mpay_data=None, sell_currency=None):
+	def __init__(self, api, mpay_data=None, sell_currency=None, tradeId=None):
 		self._session = api
 		self._request = None
-		if sell_currency is None:
-			self.url = '%s/multipayments?client_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID)
-		else:
+		if sell_currency:
 			self.url = '%s/multipayments?client_id=%s?sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
+		elif tradeId:
+			self.url = '%s/multipayments?client_id=%s?trade_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID, tradeId)
+		else:
+			self.url = '%s/multipayments?client_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID)
 		self.post(mpay_data)
 
 	def post(self, data):

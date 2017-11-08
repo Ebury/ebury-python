@@ -105,7 +105,7 @@ class Ebury(PoolManager):
 		return resources.Quote(self, quote_data)
 
 	def Trades(self, trade_data):
-		return resources.Trade(self, trade_data)
+		return resources.Trade(self, trade_data, )
 
 	def Beneficiary(self, bene_data):
 		return resources.Beneficiary(self, bene_data)
@@ -113,8 +113,8 @@ class Ebury(PoolManager):
 	def Payments(self, pay_data):
 		return resources.Payment(self, pay_data)
 
-	def Multipayments(self, mpay_data, sell_currency):
-		return resources.Multipayment(self, mpay_data, sell_currency)
+	def Multipayments(self, mpay_data, sell_currency, tradeId=None):
+		return resources.Multipayment(self, mpay_data, sell_currency, tradeId=tradeId)
 
 
 
