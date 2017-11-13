@@ -118,16 +118,19 @@ class Multipayment(Entity):
 		self._session = api
 		self._request = None
 		if sell_currency:
-			self.url = '%s/multipayments?client_id=%s?sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
+			self.url = '%s/multipayments?client_id=%s&sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
 		elif tradeId:
-			self.url = '%s/multipayments?client_id=%s?trade_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID, tradeId)
+			self.url = '%s/multipayments?client_id=%s&trade_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID, tradeId)
 		else:
 			self.url = '%s/multipayments?client_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID)
 		self.post(mpay_data)
 
+	
 	def post(self, data):
-		self._request = self._session.urlopen('POST', self.url , headers=self._session.headers)
-		return self._request.status
 
+		self._request = self._session.urlopen('POST',
+			self.url,
+			body = json.dumps(data), headers=self._session.headers)
+		return self._request.status
 
 
