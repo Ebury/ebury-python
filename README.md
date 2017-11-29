@@ -28,3 +28,6 @@ The Quotes object will print the http response data
 
 2) Trades
 
+
+
+

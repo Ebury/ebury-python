@@ -20,9 +20,13 @@ class Entity(object):
 
 
 class Quote(Entity):
-	def __init__(self, api, quote_data=None):
+	def __init__(self, api, quote_data=None, clientid=None):
 		self._session = api
 		self._request = None
+		if clientid is None:
+			self._clientid = self._session.CLIENT_ID
+		else:
+			self._clientid = clientid
 		if isinstance(quote_data, dict):
 			self.load_attributes(quote_data)
 			self.post(quote_data)
@@ -30,7 +34,7 @@ class Quote(Entity):
 	def post(self, data):
 		self._request = self._session.urlopen('POST',
     		'%s/quotes?quote_type=quote&client_id=%s' 
-    		% (self._session.API_BASE, self._session.CLIENT_ID),
+    		% (self._session.API_BASE, self._clientid),
     		body=json.dumps(data), headers=self._session.headers)
 		return self._request.status
 
@@ -132,5 +136,8 @@ class Multipayment(Entity):
 			self.url,
 			body = json.dumps(data), headers=self._session.headers)
 		return self._request.status
+
+class Metada(Entity):
+	pass 
 
 

@@ -101,8 +101,8 @@ class Ebury(PoolManager):
 			return resources.Payment(self)
 	
 
-	def Quotes(self, quote_data):
-		return resources.Quote(self, quote_data)
+	def Quotes(self, quote_data, clientid=None):
+		return resources.Quote(self, quote_data, clientid=clientid)
 
 	def Trades(self, trade_data):
 		return resources.Trade(self, trade_data, )
