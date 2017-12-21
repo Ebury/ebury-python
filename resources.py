@@ -93,7 +93,6 @@ class Beneficiary(Entity):
 		return self._request.status
 
 
-
 class Payment(Entity):
 	def __init__(self, api, pay_data=None, trade=None, bene=None):
 		self._session = api
@@ -122,11 +121,11 @@ class Multipayment(Entity):
 		self._session = api
 		self._request = None
 		if sell_currency:
-			self.url = '%s/multipayments?client_id=%s&sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
+			self.url = '%s/multipayments?client_id=%s&accept_immediately=true&sell_currency=%s' % (self._session.API_BASE, self._session.CLIENT_ID, sell_currency)
 		elif tradeId:
-			self.url = '%s/multipayments?client_id=%s&trade_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID, tradeId)
+			self.url = '%s/multipayments?client_id=%s&accept_immediately=true&trade_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID, tradeId)
 		else:
-			self.url = '%s/multipayments?client_id=%s' % (self._session.API_BASE, self._session.CLIENT_ID)
+			self.url = '%s/multipayments?client_id=%s&accept_immediately=true' % (self._session.API_BASE, self._session.CLIENT_ID)
 		self.post(mpay_data)
 
 	
