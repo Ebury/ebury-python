@@ -99,6 +99,8 @@ class Payment(Entity):
 		self._request = None
 		if isinstance(pay_data, str):
 			self.get(pay_data)
+		elif isinstance(pay_data, dict):
+			self.post(pay_data)
 
 	def post(self, data):
 

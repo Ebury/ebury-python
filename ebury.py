@@ -7,7 +7,6 @@ import resources
 import time
 import json
 
-
 class Ebury(PoolManager):
 	def __init__(self, env):
 		super(Ebury, self).__init__()
@@ -99,7 +98,6 @@ class Ebury(PoolManager):
 			return resources.Beneficiary(self)
 		if resource == 'payment':
 			return resources.Payment(self)
-	
 
 	def Quotes(self, quote_data, clientid=None):
 		return resources.Quote(self, quote_data, clientid=clientid)
@@ -115,8 +113,3 @@ class Ebury(PoolManager):
 
 	def Multipayments(self, mpay_data, sell_currency, tradeId=None):
 		return resources.Multipayment(self, mpay_data, sell_currency, tradeId=tradeId)
-
-
-
-
-
