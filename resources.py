@@ -94,13 +94,16 @@ class Beneficiary(Entity):
 
 
 class Payment(Entity):
-	def __init__(self, api, pay_data=None, trade=None, bene=None):
+	def __init__(self, api, pay_data=None, trade=None, bene=None, action=None):
 		self._session = api
 		self._request = None
-		if isinstance(pay_data, str):
+		if isinstance(pay_data, str) and action is None:
 			self.get(pay_data)
+		elif isinstance(pay_data, str) and isinstance(action, str):
+			self.patch(pay_data, action)
 		elif isinstance(pay_data, dict):
 			self.post(pay_data)
+
 
 	def post(self, data):
 
@@ -114,6 +117,13 @@ class Payment(Entity):
 		self._request = self._session.urlopen('GET',
 			'%s/payments/%s?client_id=%s' % 
 			(self._session.API_BASE, pi, self._session.CLIENT_ID),
+			headers=self._session.headers)
+		return	self._request.status
+
+	def patch(self, pi, action):
+		self._request = self._session.urlopen('PATCH',
+			'%s/payments/%s?action=%s&client_id=%s' % 
+			(self._session.API_BASE, pi, action, self._session.CLIENT_ID),
 			headers=self._session.headers)
 		return	self._request.status
 
